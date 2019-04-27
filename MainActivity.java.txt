@@ -1,0 +1,56 @@
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final List<String> testStrings = new ArrayList<>();
+        for(int i = 0; i < 4; i++) {
+            testStrings.add(i + " ¹øÂ° item");
+        }
+        RecyclerView recyclerView = findViewById(R.id.main_scrollview_recyclerview);
+        recyclerView.setAdapter(new RecyclerView.Adapter<TestViewHolder>() {
+            @Override
+            public TestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = View.inflate(getApplicationContext(), android.R.layout.simple_list_item_1, null);
+                return new TestViewHolder(view);
+            }
+
+            @Override
+            public void onBindViewHolder(TestViewHolder holder, int position) {
+                holder.textView.setText(testStrings.get(position));
+            }
+            public int getItemCount() {
+                return testStrings.size();
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public static class TestViewHolder extends RecyclerView.ViewHolder {
+        public TextView textView;
+        public TestViewHolder(View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(android.R.id.text1);
+        }
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+    }
+}
