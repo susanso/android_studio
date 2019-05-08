@@ -18,6 +18,10 @@
         </activity>
         <activity android:name=".Profile">
         </activity>
+
+        <meta-data
+                android:name="com.google.android.actions"
+                android:resource="@xml/border.xml"/>
     </application>
 
 </manifest>
