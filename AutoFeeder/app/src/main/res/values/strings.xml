@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AutoFeeder</string>
+    <string name="menu1">사료주기</string>
+    <string name="menu2">기록</string>
+    <string name="menu3">사료정보</string>
+    <string name="menu4">애완용품 샵</string>
 </resources>
