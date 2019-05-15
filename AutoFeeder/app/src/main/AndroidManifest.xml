@@ -20,8 +20,7 @@
         </activity>
 
         <meta-data
-                android:name="com.google.android.actions"
-                android:resource="@xml/border.xml"/>
+                android:name="com.google.android.actions"/>
     </application>
 
 </manifest>
