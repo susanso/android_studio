@@ -92,7 +92,7 @@
                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView11"
                     android:layout_marginStart="8dp"/>
             <TextView
-                    android:text="2019/05/08(수)"
+                    android:text="2019. 5. 8"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
