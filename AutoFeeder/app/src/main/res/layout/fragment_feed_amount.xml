@@ -3,14 +3,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" android:orientation="vertical">
 
-    <LinearLayout
-            android:orientation="vertical"
+    <Button
+            android:text="@string/addalam"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <Button
-                android:text="알람 추가"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/button3"
-                android:onClick="create"/>
-    </LinearLayout>
+            android:layout_height="wrap_content" android:id="@+id/button3"
+            android:onClick="create"/>
 </LinearLayout>
