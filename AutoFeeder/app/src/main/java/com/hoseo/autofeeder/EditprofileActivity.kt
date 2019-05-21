@@ -22,7 +22,7 @@ class EditprofileActivity : AppCompatActivity() {
         }
 
         cancelButton.setOnClickListener {
-            startActivity(Intent(this, Profile::class.java))
+            onBackPressed()
         }
 
         applyButton.setOnClickListener {

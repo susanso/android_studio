@@ -14,5 +14,9 @@ class MainActivity : AppCompatActivity() {
         picture.setOnClickListener {
             startActivity(Intent(this, Profile::class.java))
         }
+
+        feed.setOnClickListener{
+            startActivity(Intent(this, FeedActivity::class.java))
+        }
     }
 }
