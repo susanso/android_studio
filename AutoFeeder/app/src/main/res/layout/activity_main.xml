@@ -20,7 +20,7 @@
                 app:civ_shadow="true"
                 app:civ_shadow_radius="10"
                 app:civ_shadow_color="#8BC34A" tools:srcCompat="@tools:sample/avatars"
-                android:id="@+id/pictuer"
+                android:id="@+id/picture"
                 android:layout_gravity="center"/>
         <LinearLayout
                 android:orientation="vertical"
@@ -29,7 +29,7 @@
             <TextView
                     android:text="D-123"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:id="@+id/day"
+                    android:layout_height="match_parent" android:id="@+id/textDay"
                     android:textAlignment="center"
                     android:textSize="50dp"/>
         </LinearLayout>
@@ -38,20 +38,20 @@
             android:text="@string/menu1"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/feed" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="@drawable/cardview_layout"/>
     <Button
             android:text="@string/menu2"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/log" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="@drawable/cardview_layout"/>
     <Button
             android:text="@string/menu3"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/foodInfo" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="@drawable/cardview_layout"/>
     <Button
             android:text="@string/menu4"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/map" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="@drawable/cardview_layout"/>
 </LinearLayout>
