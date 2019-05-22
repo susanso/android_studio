@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">AutoFeeder</string>
     <string name="menu1">사료주기</string>
-    <string name="menu2">기록</string>
+    <string name="menu2">기       록</string>
     <string name="menu3">사료정보</string>
     <string name="menu4">애완용품 샵</string>
+    <string name="feedInfo1">공급시간</string>
+    <string name="feedInfo2">양조정</string>
+    <string name="feedSubmit">적용</string>
+    <string name="home">취소</string>
+    <string name="addalam">알람추가</string>
+
 </resources>

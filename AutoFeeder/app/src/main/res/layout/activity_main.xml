@@ -38,20 +38,20 @@
             android:text="@string/menu1"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/feed" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="#FFFFFF" android:textSize="35sp" android:textColor="#745A3D"/>
     <Button
             android:text="@string/menu2"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/log" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="#FFFFFF" android:textSize="35sp" android:textColor="#745A3D"/>
     <Button
             android:text="@string/menu3"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/foodInfo" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="#FFFFFF" android:textSize="35sp" android:textColor="#745A3D"/>
     <Button
             android:text="@string/menu4"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/map" android:layout_weight="1"
-            android:background="#FFFFFF"/>
+            android:background="#FFFFFF" android:textSize="35sp" android:textColor="#745A3D"/>
 </LinearLayout>
