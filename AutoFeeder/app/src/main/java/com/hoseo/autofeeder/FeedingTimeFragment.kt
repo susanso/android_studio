@@ -1,11 +1,13 @@
 package com.hoseo.autofeeder
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +26,13 @@ class FeedingTimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feeding_time, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_feeding_time, container, false)
+
+        val alarmBtn: Button = view.findViewById(R.id.alarmButton)
+        alarmBtn.setOnClickListener {
+            startActivity(Intent(activity, AlarmActivity::class.java))
+        }
+
+        return view
     }
 }

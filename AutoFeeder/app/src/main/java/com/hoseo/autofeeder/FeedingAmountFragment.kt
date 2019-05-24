@@ -1,6 +1,7 @@
 package com.hoseo.autofeeder
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_feeding_amount.*
 
 
@@ -35,7 +37,7 @@ class FeedingAmountFragment : Fragment() {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
                 val feedingAmount = i * 5
-                textFeedAmount.text = "$feedingAmount"
+                textFeedAmount.text = "${feedingAmount}"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -50,6 +52,16 @@ class FeedingAmountFragment : Fragment() {
         val cancelBtn: Button = view.findViewById(R.id.amountCancelButton)
         cancelBtn.setOnClickListener{
             activity?.finish()
+        }
+
+        val submitBtn: Button = view.findViewById(R.id.amountSubmitButton)
+        submitBtn.setOnClickListener {
+            val feedAmount = textFeedAmount.text.toString()
+            Toast.makeText(
+                activity,
+                "공급량이 ${feedAmount}g로 변경되었습니다.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         return view
