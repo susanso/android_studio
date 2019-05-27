@@ -3,9 +3,12 @@ package com.hoseo.autofeeder
 
 import android.app.*
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.widget.TextView
 import android.widget.DatePicker
 import android.widget.Toast
+import com.google.firebase.database.*
 import java.text.DateFormat
 import java.util.Calendar
 
@@ -13,10 +16,15 @@ import java.util.Calendar
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var calendar:Calendar
+    private lateinit var database: FirebaseDatabase
+    private lateinit var dateReference: DatabaseReference
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Initialize a calendar instance
         calendar = Calendar.getInstance()
+        database = FirebaseDatabase.getInstance()
+        dateReference = database.reference.child("date")
 
         // Get the system current date
         val dateYear = calendar.get(Calendar.YEAR)
@@ -66,6 +74,10 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
         // Display the selected date in text view
         activity.findViewById<TextView>(R.id.editDate).text = formatDate(year,month,day)
+
+        dateReference.child("dateYear").setValue(year)
+        dateReference.child("dateMonth").setValue(month)
+        dateReference.child("dateDay").setValue(day)
     }
 
 
@@ -79,4 +91,5 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
         return df.format(chosenDate)
     }
+
 }

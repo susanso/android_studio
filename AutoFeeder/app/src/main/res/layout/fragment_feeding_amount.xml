@@ -11,7 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/feedAmount"
             style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-            android:max="100"
+            android:max="500"
             android:layout_marginTop="32dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"

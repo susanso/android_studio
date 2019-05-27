@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "714034933815-0m34oefigsgcjablag11sd32m6vs1l8o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoseo.autofeeder",
+            "certificate_hash": "35cd4f7470c98c8ae82cffdc865666a8fdef48e7"
+          }
+        },
+        {
           "client_id": "714034933815-c21n5gmp46o8hn8t67v982mb9ggigin5.apps.googleusercontent.com",
           "client_type": 3
         }

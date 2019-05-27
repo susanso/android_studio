@@ -76,6 +76,18 @@
                     app:layout_constraintVertical_bias="0.19999999" android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.05"/>
             <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="D-day"
+                    android:textColor="#F7819F"
+                    android:textSize="20dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/textView11"
+                    android:id="@+id/textDDay"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView11"
+                    app:layout_constraintBottom_toTopOf="@+id/textView4" android:visibility="invisible"/>
+            <TextView
                     android:text="만난 일"
                     android:textSize="18dp"
                     android:layout_width="wrap_content"
