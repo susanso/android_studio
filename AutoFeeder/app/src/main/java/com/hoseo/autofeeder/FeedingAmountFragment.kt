@@ -45,7 +45,7 @@ class FeedingAmountFragment : Fragment() {
 
                 if(amount!=0) {
                     textFeedAmount.text = "${amount}g"
-                    feedAmountBar.progress = amount!!
+                    feedAmountBar.progress = amount!! / 5
                 }
             }
 
@@ -58,7 +58,7 @@ class FeedingAmountFragment : Fragment() {
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                val feedingAmount = i
+                val feedingAmount = i * 5
                 textFeedAmount.text = "${feedingAmount}g"
             }
 
@@ -78,7 +78,7 @@ class FeedingAmountFragment : Fragment() {
 
         val submitBtn: Button = view.findViewById(R.id.amountSubmitButton)
         submitBtn.setOnClickListener {
-            val feedingAmount = feedAmountBar.progress
+            val feedingAmount = feedAmountBar.progress * 5
             amountReference.setValue(feedingAmount)
 
             Toast.makeText(
@@ -86,8 +86,6 @@ class FeedingAmountFragment : Fragment() {
                 "공급량이 ${feedingAmount}g로 변경되었습니다.",
                 Toast.LENGTH_SHORT
             ).show()
-
-            activity?.finish()
         }
 
         return view

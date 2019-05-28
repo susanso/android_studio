@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/profile1">
             <TextView
-                    android:text="D-123"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/textDay"
                     android:textAlignment="center"

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.DatePicker
 import android.widget.Toast
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.DateFormat
 import java.util.Calendar
 
@@ -13,10 +15,14 @@ import java.util.Calendar
 class BirthdayPickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var calendar:Calendar
+    private lateinit var database: FirebaseDatabase
+    private lateinit var birthdayReference: DatabaseReference
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Initialize a calendar instance
         calendar = Calendar.getInstance()
+        database = FirebaseDatabase.getInstance()
+        birthdayReference = database.reference.child("birthday")
 
         // Get the system current date
         val birthdayYear = calendar.get(Calendar.YEAR)
@@ -66,6 +72,10 @@ class BirthdayPickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListe
 
         // Display the selected date in text view
         activity.findViewById<TextView>(R.id.editBirthday).text = formatDate(year,month,day)
+
+        birthdayReference.child("birthYear").setValue(year)
+        birthdayReference.child("birthMonth").setValue(month)
+        birthdayReference.child("birthDay").setValue(day)
     }
 
 

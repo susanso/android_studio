@@ -7,6 +7,8 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 class Profile : AppCompatActivity() {
 
@@ -29,11 +31,26 @@ class Profile : AppCompatActivity() {
                 val date = user?.userDate
                 val weight = user?.userWeight
                 val birthday = user?.userBirthday
+                val bDay = user?.userBDay
 
                 if(!TextUtils.isEmpty(name)) {textName.text = "${name}"}
                 if(!TextUtils.isEmpty(date)) {textDate.text = "${date}"}
                 if(!TextUtils.isEmpty(weight)) {textWeight.text = "${weight}g"}
                 if(!TextUtils.isEmpty(birthday)) {textBirthday.text = "${birthday}"}
+
+                val bDayInt = bDay!!.toInt()
+                val weightDouble = weight!!.toDouble()
+
+                val amountRecommended = when(bDayInt) {
+                    in 0..60 -> (weightDouble*0.07).roundToInt()
+                    in 60..90 -> (weightDouble*0.06).roundToInt()
+                    in 90..150 -> (weightDouble*0.05).roundToInt()
+                    in 150..365 -> (weightDouble*0.03).roundToInt()
+                    in 365..1825 -> (weightDouble*0.025).roundToInt()
+                    else -> (weightDouble*0.02).roundToInt()
+                }
+
+                textAmount.text = "${amountRecommended}g"
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -55,7 +72,6 @@ class Profile : AppCompatActivity() {
                 Log.w("loadDate:onCancelled", databaseError.toException())
             }
         }
-
         userReference.addValueEventListener(userDataListener)
         dateReference.addValueEventListener(dateDataListener)
 

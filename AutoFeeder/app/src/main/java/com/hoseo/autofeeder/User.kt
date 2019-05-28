@@ -7,5 +7,6 @@ data class User(
     var userName: String? = "",
     var userDate: String? = "",
     var userWeight: String? = "",
-    var userBirthday: String = ""
+    var userBirthday: String = "",
+    var userBDay: String = ""
 )

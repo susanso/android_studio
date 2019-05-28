@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.DatePicker
 import android.widget.Toast
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_profile.*
 import java.text.DateFormat
 import java.util.Calendar
 
@@ -18,7 +19,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     private lateinit var calendar:Calendar
     private lateinit var database: FirebaseDatabase
     private lateinit var dateReference: DatabaseReference
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Initialize a calendar instance

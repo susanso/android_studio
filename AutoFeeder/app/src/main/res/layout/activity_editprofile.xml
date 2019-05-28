@@ -132,6 +132,16 @@
                 android:layout_height="match_parent">
 
             <TextView
+                    android:text="2296"
+                    android:textColor="#F7819F"
+                    android:textSize="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textBDay"
+                    app:layout_constraintTop_toTopOf="@+id/textFeedAmount" android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textView7"
+                    app:layout_constraintStart_toEndOf="@+id/textFeedAmount" app:layout_constraintVertical_bias="0.0"
+                    android:visibility="invisible"/>
+            <TextView
                     android:text="몸무게"
                     android:textSize="18dp"
                     android:layout_width="wrap_content"
@@ -142,7 +152,7 @@
                     android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintVertical_bias="0.25" app:layout_constraintHorizontal_bias="0.0"/>
             <TextView
-                    android:text="권장사료양"
+                    android:text="하루권장사료양"
                     android:textColor="#F7819F"
                     android:textSize="18dp"
                     android:layout_width="wrap_content"
