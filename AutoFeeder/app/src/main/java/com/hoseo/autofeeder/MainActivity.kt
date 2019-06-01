@@ -37,5 +37,9 @@ class MainActivity : AppCompatActivity() {
         feed.setOnClickListener{
             startActivity(Intent(this, FeedActivity::class.java))
         }
+
+        log.setOnClickListener {
+            startActivity(Intent(this, LogActivity::class.java))
+        }
     }
 }

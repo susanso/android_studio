@@ -14,7 +14,7 @@
             android:background="#CCEEFF">
         <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_width="224dp" android:layout_height="215dp"
-                android:src="@drawable/cat"
+                android:src="@drawable/dd"
                 app:civ_border_color="#EEEEEE"
                 app:civ_border_width="4dp"
                 app:civ_shadow="true"
