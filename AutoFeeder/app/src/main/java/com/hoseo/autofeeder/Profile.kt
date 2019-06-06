@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_editprofile.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.math.round
 import kotlin.math.roundToInt
@@ -14,6 +18,7 @@ class Profile : AppCompatActivity() {
 
     private lateinit var userReference: DatabaseReference
     private lateinit var dateReference: DatabaseReference
+    private lateinit var storage: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +26,14 @@ class Profile : AppCompatActivity() {
 
         userReference = FirebaseDatabase.getInstance().reference.child("user")
         dateReference = FirebaseDatabase.getInstance().reference.child("date")
+
+        storage = FirebaseStorage.getInstance().reference.child("user_profile_image.jpg")
+
+        storage.downloadUrl.addOnSuccessListener {
+            Picasso.get().load(it).into(profile)
+        }.addOnFailureListener {
+            Log.d("ImageTest", "Fail to load the image.")
+        }
 
         val userDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

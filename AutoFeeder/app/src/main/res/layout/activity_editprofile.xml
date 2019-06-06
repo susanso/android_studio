@@ -22,7 +22,6 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/dd"
                     app:civ_border_color="#EEEEEE"
                     app:civ_border_width="4dp"
                     app:civ_shadow="true"
@@ -30,7 +29,8 @@
                     app:civ_shadow_radius="10"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" android:id="@+id/profile" android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="parent" android:id="@+id/editProfile"
+                    android:layout_marginEnd="8dp"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintVertical_bias="1.0" android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"/>
@@ -41,9 +41,9 @@
                     android:id="@+id/editName" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/profile"
-                    android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.503"
-                    android:hint="닉네임"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:hint="닉네임" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"/>
             <android.support.constraint.Guideline android:layout_width="wrap_content"
                                                   android:layout_height="wrap_content" android:id="@+id/guideline2"
                                                   android:orientation="vertical"

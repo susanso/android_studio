@@ -13,7 +13,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/alarmList" app:layout_constraintBottom_toTopOf="@+id/alarmButton"
-    />
+            android:layout_marginBottom="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
     <Button
             android:text="@string/addAlarm"
             android:layout_width="wrap_content"

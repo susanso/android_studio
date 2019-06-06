@@ -3,25 +3,24 @@ package com.hoseo.autofeeder
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_log.*
 import com.google.firebase.database.DataSnapshot
-
+import java.sql.Timestamp
 
 
 class LogActivity : AppCompatActivity() {
-    private lateinit var alarmReference: DatabaseReference
+    private lateinit var logReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
 
-        alarmReference = FirebaseDatabase.getInstance().reference.child("alarm")
+        logReference = FirebaseDatabase.getInstance().reference.child("log")
 
-        var logs: MutableList<Alarm> = mutableListOf()
+        var logsDate: MutableList<Long> = mutableListOf()
 
-        alarmReference.addChildEventListener(object : ChildEventListener {
+        logReference.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
 
@@ -29,24 +28,24 @@ class LogActivity : AppCompatActivity() {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                val alarm = p0.getValue(Alarm::class.java)
-                val hour = alarm!!.alarmHour
-                val minute = alarm!!.alarmMinute
+                val log = p0.getValue(Long::class.java)
 
-                logs.add(Alarm(hour, minute))
+                if (log != null) {
+                    logsDate.add(log)
+                }
 
-                logList.adapter = LogAdapter(logs)
+                logList.adapter = LogAdapter(logsDate)
                 logList.layoutManager = LinearLayoutManager(this@LogActivity)
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                val alarm = p0.getValue(Alarm::class.java)
-                val hour = alarm!!.alarmHour
-                val minute = alarm!!.alarmMinute
+                val log = p0.getValue(Long::class.java)
 
-                logs.add(Alarm(hour, minute))
+                if (log != null) {
+                    logsDate.add(log)
+                }
 
-                logList.adapter = LogAdapter(logs)
+                logList.adapter = LogAdapter(logsDate)
                 logList.layoutManager = LinearLayoutManager(this@LogActivity)
             }
 

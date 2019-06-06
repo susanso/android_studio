@@ -1,16 +1,23 @@
 package com.hoseo.autofeeder
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.Sampler
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_editprofile.*
-import kotlinx.android.synthetic.main.activity_profile.*
 import java.util.*
+import java.io.*
 
 class EditprofileActivity : AppCompatActivity() {
 
@@ -18,8 +25,10 @@ class EditprofileActivity : AppCompatActivity() {
     private lateinit var userReference: DatabaseReference
     private lateinit var dateReference: DatabaseReference
     private lateinit var birthdayReference: DatabaseReference
+    private lateinit var storage: StorageReference
     private lateinit var calendar:Calendar
     private lateinit var calendarChosen: Calendar
+    private val GALLERY = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +38,13 @@ class EditprofileActivity : AppCompatActivity() {
         userReference = database.child("user")
         dateReference = database.child("date")
         birthdayReference = database.child("birthday")
+        storage = FirebaseStorage.getInstance().reference.child("user_profile_image.jpg")
 
+        storage.downloadUrl.addOnSuccessListener {
+            Picasso.get().load(it).into(editProfile)
+        }.addOnFailureListener {
+            Log.d("ImageTest", "Fail to load the image.")
+        }
 
         val userDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -145,10 +160,88 @@ class EditprofileActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        editProfile.setOnClickListener {
+            choosePhotoFromGallary()
+        }
+
     }
 
     private fun writeUserData(userName: String, userDate: String, userWeight: String, userBirthday: String, userBDay: String) {
         val user = User(userName, userDate, userWeight, userBirthday, userBDay)
         userReference.setValue(user)
+    }
+
+    fun choosePhotoFromGallary() {
+        val galleryIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+        startActivityForResult(galleryIntent, GALLERY)
+    }
+
+    override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            val contentURI = data!!.data
+            try
+            {
+                val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+                val path = saveImage(bitmap)
+                Toast.makeText(this@EditprofileActivity, "이미지가 성공적으로 업로드되었습니다.", Toast.LENGTH_SHORT).show()
+                editProfile!!.setImageBitmap(bitmap)
+                storage.putFile(contentURI!!)
+                    .addOnFailureListener {
+                        Log.d("ImageTest", "Fail to upload the image on Firebase")
+                    }.addOnSuccessListener {
+                        val urlUpload = storage.downloadUrl
+                        Log.d("ImageTest", "File location: $urlUpload")
+                    }
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this@EditprofileActivity, "이미지를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    fun saveImage(myBitmap: Bitmap):String {
+        val bytes = ByteArrayOutputStream()
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+        val wallpaperDirectory = File(
+            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+        Log.d("fee",wallpaperDirectory.toString())
+        if (!wallpaperDirectory.exists())
+        {
+
+            wallpaperDirectory.mkdirs()
+        }
+
+        try
+        {
+            Log.d("heel",wallpaperDirectory.toString())
+            val f = File(wallpaperDirectory, ((Calendar.getInstance()
+                .getTimeInMillis()).toString() + ".jpg"))
+            f.createNewFile()
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+            MediaScannerConnection.scanFile(this,
+                arrayOf(f.getPath()),
+                arrayOf("image/jpeg"), null)
+            fo.close()
+            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath())
+
+            return f.getAbsolutePath()
+        }
+        catch (e1: IOException) {
+            e1.printStackTrace()
+        }
+
+        return ""
+    }
+
+    companion object {
+        private val IMAGE_DIRECTORY = "/demonuts"
     }
 }

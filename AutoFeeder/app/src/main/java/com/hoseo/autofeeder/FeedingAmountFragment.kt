@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,6 +37,7 @@ class FeedingAmountFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_feeding_amount, container, false)
         val feedAmountBar: SeekBar = view.findViewById(R.id.feedAmount)
+        val textFeedAmount: TextView = view.findViewById(R.id.textFeedAmount)
 
         amountReference = FirebaseDatabase.getInstance().reference.child("amount")
 
@@ -43,9 +45,14 @@ class FeedingAmountFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val amount = dataSnapshot.getValue(Int::class.java)
 
-                if(amount!=0) {
-                    textFeedAmount.text = "${amount}g"
-                    feedAmountBar.progress = amount!! / 5
+                feedAmountBar.progress = amount!!
+
+                if(amount==1) {
+                    textFeedAmount.text = "소"
+                } else if(amount==2) {
+                    textFeedAmount.text = "중"
+                } else if(amount==3) {
+                    textFeedAmount.text = "대"
                 }
             }
 
@@ -58,8 +65,13 @@ class FeedingAmountFragment : Fragment() {
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                val feedingAmount = i * 5
-                textFeedAmount.text = "${feedingAmount}g"
+                if(i==1) {
+                    textFeedAmount.text = "소"
+                } else if(i==2) {
+                    textFeedAmount.text = "중"
+                } else if(i==3) {
+                    textFeedAmount.text = "대"
+                }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -78,12 +90,12 @@ class FeedingAmountFragment : Fragment() {
 
         val submitBtn: Button = view.findViewById(R.id.amountSubmitButton)
         submitBtn.setOnClickListener {
-            val feedingAmount = feedAmountBar.progress * 5
+            val feedingAmount = feedAmountBar.progress
             amountReference.setValue(feedingAmount)
 
             Toast.makeText(
                 activity,
-                "공급량이 ${feedingAmount}g로 변경되었습니다.",
+                "공급량이 변경되었습니다.",
                 Toast.LENGTH_SHORT
             ).show()
         }
