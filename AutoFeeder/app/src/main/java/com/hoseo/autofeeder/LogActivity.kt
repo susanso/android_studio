@@ -52,7 +52,6 @@ class LogActivity : AppCompatActivity() {
             override fun onChildRemoved(p0: DataSnapshot) {
             }
 
-
         })
     }
 }

@@ -53,5 +53,9 @@ class MainActivity : AppCompatActivity() {
         log.setOnClickListener {
             startActivity(Intent(this, LogActivity::class.java))
         }
+
+        foodInfo.setOnClickListener {
+            startActivity(Intent(this, FoodInfoActivity::class.java))
+        }
     }
 }

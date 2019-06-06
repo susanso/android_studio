@@ -10,7 +10,7 @@
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8">
+            android:layout_weight="1">
 
         <android.support.constraint.ConstraintLayout
                 android:background="@drawable/cardview_layout"
@@ -55,7 +55,7 @@
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.7"
     >
 
         <android.support.constraint.ConstraintLayout
@@ -125,7 +125,7 @@
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1.3">
         <android.support.constraint.ConstraintLayout
                 android:background="@drawable/cardview_layout"
                 android:layout_width="match_parent"
