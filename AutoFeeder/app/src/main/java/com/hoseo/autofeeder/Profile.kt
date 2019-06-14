@@ -16,6 +16,10 @@ import kotlin.math.roundToInt
 
 class Profile : AppCompatActivity() {
 
+    /*
+        DB의 user, date의 주소와 Storage의 주소를 저장할 변수
+     */
+
     private lateinit var userReference: DatabaseReference
     private lateinit var dateReference: DatabaseReference
     private lateinit var storage: StorageReference
@@ -29,15 +33,22 @@ class Profile : AppCompatActivity() {
 
         storage = FirebaseStorage.getInstance().reference.child("user_profile_image.jpg")
 
+        /*
+            Storage에 저장된 이미지의 URL을 불러와 Picasso 클래스를 이용하여 ImageView의 이미지를 표시
+         */
+
         storage.downloadUrl.addOnSuccessListener {
             Picasso.get().load(it).into(profile)
         }.addOnFailureListener {
             Log.d("ImageTest", "Fail to load the image.")
         }
 
+        /*
+            DB의 user를 불러와 TextView에 값을 표시
+         */
+
         val userDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Get Post object and use the values to update the UI
                 val user = dataSnapshot.getValue(User::class.java)
 
                 val name = user?.userName
@@ -53,6 +64,10 @@ class Profile : AppCompatActivity() {
 
                 val bDayInt = bDay!!.toInt()
                 val weightDouble = weight!!.toDouble()
+
+                /*
+                    태어난 후 경과된 일 수와 몸무게를 바탕으로 권장사료양을 계산, TextView에 표시
+                 */
 
                 val amountRecommended = when(bDayInt) {
                     in 0..60 -> (weightDouble*0.07).roundToInt()
@@ -73,6 +88,10 @@ class Profile : AppCompatActivity() {
             }
         }
 
+        /*
+            DB의 dDay를 불러와 TextView에 표시
+         */
+
         val dateDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val date = dataSnapshot.getValue(Date::class.java)
@@ -87,6 +106,10 @@ class Profile : AppCompatActivity() {
         }
         userReference.addValueEventListener(userDataListener)
         dateReference.addValueEventListener(dateDataListener)
+
+        /*
+            화면 전환을 위해 버튼에 onClickListener를 설정
+         */
 
         profileEdit.setOnClickListener {
             startActivity(Intent(this, EditprofileActivity::class.java))

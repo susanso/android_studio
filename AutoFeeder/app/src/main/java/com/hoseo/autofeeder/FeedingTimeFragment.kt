@@ -13,16 +13,13 @@ import android.widget.Button
 import com.google.firebase.database.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class FeedingTimeFragment : Fragment() {
 
-    private lateinit var alarmTextReference: DatabaseReference
+    /*
+        DB의 alarm 주소를 저장할 변수
+     */
+
+    private lateinit var alarmReference: DatabaseReference
     private lateinit var alarmList: RecyclerView
     private lateinit var layoutManager: LinearLayoutManager
 
@@ -30,6 +27,10 @@ class FeedingTimeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        /*
+            view들을 변수에 저장
+            alarm의 값을 넣을 MutableList alarmList를 선언
+         */
         val view = inflater.inflate(R.layout.fragment_feeding_time, container, false)
 
         alarmList = view.findViewById(R.id.alarmList)
@@ -38,9 +39,13 @@ class FeedingTimeFragment : Fragment() {
 
         val alarms: MutableList<String> = mutableListOf()
 
-        alarmTextReference = FirebaseDatabase.getInstance().reference.child("alarm")
+        alarmReference = FirebaseDatabase.getInstance().reference.child("alarm")
 
-        alarmTextReference.addChildEventListener(object : ChildEventListener {
+        /*
+            DB에서 alarm 값을 불러옴
+         */
+
+        alarmReference.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
             }
@@ -59,6 +64,10 @@ class FeedingTimeFragment : Fragment() {
                 var hourString = ""
                 var minuteString = ""
 
+                /*
+                    서식을 위해 한 자리 숫자도 0을 앞에 넣어 두 자리 숫자로 만듦
+                 */
+
                 if(hour<10) {
                     hourString = "0$hour"
                 } else {
@@ -72,6 +81,10 @@ class FeedingTimeFragment : Fragment() {
 
                 val alarmData = "$hourString : $minuteString"
 
+                /*
+                    불러온 값을 MutableList에 저장하며 시간 순으로 정렬
+                 */
+
                 alarms.add(alarmData)
                 alarms.sort()
 
@@ -84,6 +97,10 @@ class FeedingTimeFragment : Fragment() {
             }
 
         })
+
+        /*
+            화면 전환을 위해 버튼에 onClickListener 설정
+         */
 
         val alarmBtn: Button = view.findViewById(R.id.alarmButton)
         alarmBtn.setOnClickListener {

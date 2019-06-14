@@ -21,6 +21,10 @@ import java.io.*
 
 class EditprofileActivity : AppCompatActivity() {
 
+    /*
+        DB의 user, date, birthday 주소를 저장할 변수와 Storage 주소를 저장할 변수, 캘린더를 저장할 변수
+     */
+
     private lateinit var database: DatabaseReference
     private lateinit var userReference: DatabaseReference
     private lateinit var dateReference: DatabaseReference
@@ -40,11 +44,19 @@ class EditprofileActivity : AppCompatActivity() {
         birthdayReference = database.child("birthday")
         storage = FirebaseStorage.getInstance().reference.child("user_profile_image.jpg")
 
+        /*
+            Stoage 주소의 다운로드 URL를 불러와 Picasso 클래스를 이용하여 ImageView의 이미지를 변경
+         */
+
         storage.downloadUrl.addOnSuccessListener {
             Picasso.get().load(it).into(editProfile)
         }.addOnFailureListener {
             Log.d("ImageTest", "Fail to load the image.")
         }
+
+        /*
+            DB에서 user의 값을 불러와 각각의 값을 TextView와 EditText에 표시
+         */
 
         val userDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -68,6 +80,11 @@ class EditprofileActivity : AppCompatActivity() {
                 // ...
             }
         }
+
+        /*
+            DB에서 date의 값을 불러와 캘린더를 이용하여 현재 시간과 설젇된 날짜를 비교해
+            며칠이 경과되었는지 계산 후 TextView에 표시
+         */
 
         val dateDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -96,6 +113,11 @@ class EditprofileActivity : AppCompatActivity() {
                 Log.w("loadDate:onCancelled", databaseError.toException())
             }
         }
+
+        /*
+            DB에서 birthday의 값을 불러와 캘린더를 이용하여 현재 시간과 설젇된 날짜를 비교해
+            며칠이 경과되었는지 계산 후 TextView에 표시
+         */
 
         val birthdayDataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -129,6 +151,10 @@ class EditprofileActivity : AppCompatActivity() {
         dateReference.addValueEventListener(dateDataListener)
         birthdayReference.addValueEventListener(birthdayDataListener)
 
+        /*
+            버튼을 누르면 화면 전환이나 Dialog가 생성되도록 onClickListener 설정
+         */
+
         editDateButton.setOnClickListener {
             val calendarFragment = DatePickerFragment()
             calendarFragment.show(fragmentManager, "EditDate")
@@ -142,6 +168,10 @@ class EditprofileActivity : AppCompatActivity() {
         cancelButton.setOnClickListener {
             onBackPressed()
         }
+
+        /*
+            변경한 값을 DB에 저장
+         */
 
         applyButton.setOnClickListener {
             val name = editName.text.toString()
@@ -170,6 +200,11 @@ class EditprofileActivity : AppCompatActivity() {
         val user = User(userName, userDate, userWeight, userBirthday, userBDay)
         userReference.setValue(user)
     }
+
+    /*
+        갤러리를 표시하고, 선택된 사진을 화면에 표시하는 함수
+        사진을 고르면 Storage에도 사진을 업로드
+     */
 
     fun choosePhotoFromGallary() {
         val galleryIntent = Intent(

@@ -10,6 +10,11 @@ import java.sql.Timestamp
 
 
 class LogActivity : AppCompatActivity() {
+
+    /*
+       DB의 log 주소를 저장할 변수와 Storage 주소를 저장할 변수
+    */
+
     private lateinit var logReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +24,10 @@ class LogActivity : AppCompatActivity() {
         logReference = FirebaseDatabase.getInstance().reference.child("log")
 
         var logsDate: MutableList<Long> = mutableListOf()
+
+        /*
+            DB의 log를 MutableList logsDate에 저장
+         */
 
         logReference.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -44,6 +53,10 @@ class LogActivity : AppCompatActivity() {
                 if (log != null) {
                     logsDate.add(log)
                 }
+
+                /*
+                   저장한 값을 가지고 FoodInfoAdapter에 연결
+                */
 
                 logList.adapter = LogAdapter(logsDate)
                 logList.layoutManager = LinearLayoutManager(this@LogActivity)

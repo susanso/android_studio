@@ -16,42 +16,26 @@ import java.util.Calendar
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
+    /*
+        캘린더를 저장할 변수와 DB의 date 주소를 저장할 변수
+     */
+
     private lateinit var calendar:Calendar
-    private lateinit var database: FirebaseDatabase
     private lateinit var dateReference: DatabaseReference
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Initialize a calendar instance
         calendar = Calendar.getInstance()
-        database = FirebaseDatabase.getInstance()
-        dateReference = database.reference.child("date")
+        dateReference = FirebaseDatabase.getInstance().reference.child("date")
 
-        // Get the system current date
         val dateYear = calendar.get(Calendar.YEAR)
         val dateMonth = calendar.get(Calendar.MONTH)
         val dateDay = calendar.get(Calendar.DAY_OF_MONTH)
 
         /*
             **** reference source developer.android.com ***
-
-            DatePickerDialog(Context context)
-                Creates a new date picker dialog for the current date using the
-                parent context's default date picker dialog theme.
-
-            DatePickerDialog(Context context, int themeResId)
-                Creates a new date picker dialog for the current date.
-
-            DatePickerDialog(Context context, DatePickerDialog.OnDateSetListener listener,
-            int year, int month, int dayOfMonth)
-                Creates a new date picker dialog for the specified date using the parent
-                context's default date picker dialog theme.
-
-            DatePickerDialog(Context context, int themeResId, DatePickerDialog.OnDateSetListener
-            listener, int year, int monthOfYear, int dayOfMonth)
-                Creates a new date picker dialog for the specified date.
+            DatePicker를 Dialog로 표시
         */
 
-        // Initialize a new date picker dialog and return it
         return DatePickerDialog(
             activity, // Context
             // Put 0 to system default theme or remove this parameter
@@ -63,8 +47,11 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         )
     }
 
+    /*
+      날짜를 고르고 적용을 눌렀을 때 실행되는 메소드
+      DB에 설정된 년, 월, 일을 저장하고 TextView에 표시
+    */
 
-    // When date set and press ok button in date picker dialog
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         Toast.makeText(
             activity,
@@ -72,7 +59,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
             ,Toast.LENGTH_SHORT
         ).show()
 
-        // Display the selected date in text view
         activity.findViewById<TextView>(R.id.editDate).text = formatDate(year,month,day)
 
         dateReference.child("dateYear").setValue(year)
@@ -80,14 +66,14 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         dateReference.child("dateDay").setValue(day)
     }
 
+    /*
+       날짜의 표시 형식을 결정하기위한 메소드
+    */
 
-    // Custom method to format date
     private fun formatDate(year:Int, month:Int, day:Int):String{
-        // Create a Date variable/object with user chosen date
         calendar.set(year, month, day, 0, 0, 0)
         val chosenDate = calendar.time
 
-        // Format the date picker selected date
         val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
         return df.format(chosenDate)
     }

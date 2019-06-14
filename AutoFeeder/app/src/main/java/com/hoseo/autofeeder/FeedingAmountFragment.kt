@@ -1,7 +1,6 @@
 package com.hoseo.autofeeder
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -13,20 +12,13 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_feeding_amount.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class FeedingAmountFragment : Fragment() {
+
+    /*
+        DB의 amount 주소를 저장할 변수
+     */
 
     private lateinit var amountReference: DatabaseReference
 
@@ -34,12 +26,15 @@ class FeedingAmountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_feeding_amount, container, false)
         val feedAmountBar: SeekBar = view.findViewById(R.id.feedAmount)
         val textFeedAmount: TextView = view.findViewById(R.id.textFeedAmount)
 
         amountReference = FirebaseDatabase.getInstance().reference.child("amount")
+
+        /*
+            DB에서 amount 값을 불러와 SeekBar와 TextView에 적용
+         */
 
         amountReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -63,8 +58,11 @@ class FeedingAmountFragment : Fragment() {
 
         feedAmountBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
+            /*
+                SeekBar를 드래그할 때마다 값에 따라 TextView의 문자도 변경
+             */
+
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                // Display the current progress of SeekBar
                 if(i==1) {
                     textFeedAmount.text = "소"
                 } else if(i==2) {
@@ -83,10 +81,18 @@ class FeedingAmountFragment : Fragment() {
             }
         })
 
+        /*
+            취소 버튼을 누르면 이전 화면으로 돌아감
+         */
+
         val cancelBtn: Button = view.findViewById(R.id.amountCancelButton)
         cancelBtn.setOnClickListener{
             activity?.finish()
         }
+
+        /*
+            적용 버튼을 누르면 Toast 메세지로 적용을 알리고 DB에 값을 저장
+         */
 
         val submitBtn: Button = view.findViewById(R.id.amountSubmitButton)
         submitBtn.setOnClickListener {

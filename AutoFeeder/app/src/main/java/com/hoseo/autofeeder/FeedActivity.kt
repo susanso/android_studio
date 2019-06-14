@@ -21,6 +21,9 @@ class FeedActivity : AppCompatActivity() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position) {
+                    /*
+                        선택된 탭에 따라 다른 화면을 표시
+                     */
                     0 -> supportFragmentManager.beginTransaction().replace(R.id.feedView, FeedingTimeFragment()).commit()
                     1 -> supportFragmentManager.beginTransaction().replace(R.id.feedView, FeedingAmountFragment()).commit()
                 }

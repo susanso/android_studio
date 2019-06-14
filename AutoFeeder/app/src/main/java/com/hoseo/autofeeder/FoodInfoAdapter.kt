@@ -10,6 +10,10 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+/*
+    사료 정보를 표시할 Recycler View에 연결할 Adapter와 View Holder를 만드는 코드
+ */
+
 class FoodInfoAdapter(private val foods: MutableList<FoodInfo>) : RecyclerView.Adapter<FoodInfoAdapter.FoodInfoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = FoodInfoViewHolder(parent)
@@ -17,6 +21,9 @@ class FoodInfoAdapter(private val foods: MutableList<FoodInfo>) : RecyclerView.A
     override fun getItemCount(): Int = foods.size
 
     override fun onBindViewHolder(holer: FoodInfoViewHolder, position: Int) {
+        /*
+            MutableList를 하나씩 불러와 해당 번호에 맞는 값을 TextView와 ImageView에 표시
+         */
         foods[position].let { item ->
             with(holer) {
                 val foodName = item.foodName
@@ -29,6 +36,10 @@ class FoodInfoAdapter(private val foods: MutableList<FoodInfo>) : RecyclerView.A
             }
         }
     }
+
+    /*
+        food_row.xml의 레이아웃을 바탕으로 레이아웃을 생성할 ViewHolder
+     */
 
     inner class FoodInfoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.food_row, parent, false)) {

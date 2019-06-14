@@ -10,6 +10,11 @@ import kotlinx.android.synthetic.main.activity_food_info.*
 import kotlinx.android.synthetic.main.activity_log.*
 
 class FoodInfoActivity : AppCompatActivity() {
+
+    /*
+        DB의 foodInfo 주소를 저장할 변수와 Storage 주소를 저장할 변수
+     */
+
     private lateinit var foodReference: DatabaseReference
     private lateinit var storage: StorageReference
 
@@ -21,6 +26,10 @@ class FoodInfoActivity : AppCompatActivity() {
         storage = FirebaseStorage.getInstance().reference
 
         var foodInfoList: MutableList<FoodInfo> = mutableListOf()
+
+        /*
+            DB의 foodInfo를 MutableList foodInfoList에 저장
+         */
 
         foodReference.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -38,6 +47,10 @@ class FoodInfoActivity : AppCompatActivity() {
                 if (foodInfo != null) {
                     foodInfoList.add(foodInfo)
                 }
+
+                /*
+                    저장한 값을 가지고 FoodInfoAdapter에 연결
+                 */
 
                 foodList.adapter = FoodInfoAdapter(foodInfoList)
                 foodList.layoutManager = LinearLayoutManager(this@FoodInfoActivity)

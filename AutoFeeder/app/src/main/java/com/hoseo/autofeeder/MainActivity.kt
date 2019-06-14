@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    /*
+        DB의 dDay의 주소를 저장할 변수와 Storage의 주소를 저장할 변수
+     */
+
     private lateinit var dDayDataReference: DatabaseReference
     private lateinit var storage: StorageReference
 
@@ -22,6 +26,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         storage = FirebaseStorage.getInstance().reference.child("user_profile_image.jpg")
 
+        /*
+            Storage에 저장된 이미지의 URL을 불러와 Picasso 클래스를 이용하여 ImageView의 이미지를 표시
+         */
+
         storage.downloadUrl.addOnSuccessListener {
             Picasso.get().load(it).into(picture)
         }.addOnFailureListener {
@@ -29,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         dDayDataReference = FirebaseDatabase.getInstance().reference.child("date").child("dDay")
+
+        /*
+            DB의 dDay를 불러와 TextView에 표시
+         */
 
         dDayDataReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -41,6 +53,10 @@ class MainActivity : AppCompatActivity() {
                 Log.w("loadDDay:onCancelled", databaseError.toException())
             }
         })
+
+        /*
+            화면 전환을 위해 버튼에 onClickListener를 설정
+         */
 
         picture.setOnClickListener {
             startActivity(Intent(this, Profile::class.java))

@@ -12,28 +12,20 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            /*
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:tabMode="fixed" app:tabGravity="fill" app:tabIndicatorColor="@color/colorPrimary">
-            */
             <android.support.design.widget.TabItem
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-
                     android:text="@string/feedInfo1" android:id="@+id/tab1"/>
             <android.support.design.widget.TabItem
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-
                     android:text="@string/feedInfo2" android:id="@+id/tab2"/>
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
-    >
-
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/feedView"/>

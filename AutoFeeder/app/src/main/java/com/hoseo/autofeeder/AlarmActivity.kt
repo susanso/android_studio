@@ -14,27 +14,30 @@ import java.util.*
 
 class AlarmActivity : AppCompatActivity() {
 
+    /*
+        DB의 alarm 주소를 저장할 변수
+     */
+
     private lateinit var alarmReference: DatabaseReference
-    private lateinit var alarmTextReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
 
         alarmReference = FirebaseDatabase.getInstance().reference.child("alarm")
-        alarmTextReference = FirebaseDatabase.getInstance().reference.child("alarmText")
-
-        val timePicker = findViewById<TimePicker>(R.id.time_picker)
 
         set.setOnClickListener {
             var hour: Int
             val minute: Int
+            /*
+                SDK 버전에 따라 다른 메소드를 사용
+             */
             if (Build.VERSION.SDK_INT >= 23) {
-                hour = timePicker.getHour()
-                minute = timePicker.getMinute()
+                hour = time_picker.getHour()
+                minute = time_picker.getMinute()
             } else {
-                hour = timePicker.getCurrentHour()
-                minute = timePicker.getCurrentMinute()
+                hour = time_picker.getCurrentHour()
+                minute = time_picker.getCurrentMinute()
             }
             Toast.makeText(
                 this,
@@ -44,6 +47,10 @@ class AlarmActivity : AppCompatActivity() {
 
             writeAlarmData(hour, minute)
 
+            /*
+                DB에 저장한 후 이전 화면으로 돌아감
+             */
+
             onBackPressed()
         }
 
@@ -52,6 +59,10 @@ class AlarmActivity : AppCompatActivity() {
         }
 
     }
+
+    /*
+        설정된 시, 분을 DB에 저장하는 메소드
+    */
 
     private fun writeAlarmData(alarmHour : Int, alarmMinute : Int) {
         val alarm = Alarm(alarmHour, alarmMinute)
